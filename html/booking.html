@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Trainer</title>
+    <link rel="stylesheet" href="../css/booking.css">
+    <script>
+        // Function to get query parameters from the URL
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set the trainer name and ID in the form
+            const trainerName = getQueryParam('trainer');
+            const trainerId = getQueryParam('trainer_id'); // Retrieve trainer_id from URL
+
+            if (trainerName) {
+                document.getElementById('trainerName').textContent = trainerName;
+                document.getElementById('trainerInput').value = trainerName;
+            }
+
+            if (trainerId) {
+                document.getElementById('trainerIdInput').value = trainerId; // Set trainer_id
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="booking-container">
+        <h1>Book Your Trainer</h1>
+        <h2>Booking for <span id="trainerName">[Trainer Name]</span></h2>
+        <form id="bookingForm" action="../php/booking.php" method="POST">
+            <input type="hidden" id="trainerInput" name="trainer_name" value="">
+            <input type="hidden" id="trainerIdInput" name="trainer_id" value="">
+            <div class="form-group">
+                <label for="clientName">Your Name:</label>
+                <input type="text" id="clientName" name="client_name" placeholder="Enter your name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="clientEmail">Your Email:</label>
+                <input type="email" id="clientEmail" name="client_email" placeholder="Enter your email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="clientPhone">Your Phone:</label>
+                <input type="tel" id="clientPhone" name="client_phone" placeholder="Enter your phone number" required>
+            </div>
+
+            <div class="form-group">
+                <label for="booking_date">Preferred Date:</label>
+                <input type="date" id="booking_date" name="booking_date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="preferredTime">Preferred Time:</label>
+                <input type="time" id="preferredTime" name="preferred_time" required>
+            </div>
+
+            <div class="form-group">
+                <label for="sessionType">Session Type:</label>
+                <select id="sessionType" name="sessionType" required>
+                    <option value="" disabled selected>Select session type</option>
+                    <option value="In-person">In-person</option>
+                    <option value="Online">Online</option>
+                </select>
+            </div>
+
+            <button type="submit">Submit Booking</button>
+        </form>
+        
+    </div>
+</body>
+</html>

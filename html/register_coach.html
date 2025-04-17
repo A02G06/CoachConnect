@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register as a New Coach</title>
+    <link rel="stylesheet" href="../css/signup.css">
+</head>
+<body>
+    <div class="signup-container">
+        <h2>Register as a New Coach</h2>
+        <form action="../php/register_coach.php" method="POST">
+            <label for="name">Name: <span style="color: red;">*</span></label>
+            <input type="text" id="name" name="name" placeholder="Name" required>
+
+            <label for="email">Email: <span style="color: red;">*</span></label>
+            <input type="email" id="email" name="email" placeholder="Email" required>
+
+            <label for="phone">Phone Number: <span style="color: red;">*</span></label>
+            <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" placeholder="Phone Number" required>
+
+            <label for="expertise">Expertise: <span style="color: red;">*</span></label>
+            <input type="text" id="expertise" name="expertise" placeholder="Your area of expertise" required>
+
+            <label for="qualifications">Qualifications: <span style="color: red;">*</span></label>
+            <textarea id="qualifications" name="qualifications" placeholder="Your qualifications" required></textarea>
+
+            <button type="submit" name="register_coach">Submit</button>
+        </form>
+        <p>Already have an account? <a href="login.html">Login</a></p>
+    </div>
+</body>
+</html>

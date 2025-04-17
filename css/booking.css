@@ -1,0 +1,102 @@
+/* General Page Styling */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f4f4; /* Light gray background */
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Booking Form Container */
+.booking-container {
+    background: #ffffff; /* Clean white card */
+    padding: 50px;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+    transition: 0.3s ease-in-out;
+}
+
+/* Headings */
+h1 {
+    color: #2D98DA; /* Bright blue for a modern, fresh look */
+    font-size: 26px;
+    font-weight: bold;
+}
+
+h2 {
+    color: #FF6B6B; /* Soft red for contrast */
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+/* Form Fields */
+.form-group {
+    margin-bottom: 18px;
+    text-align: left;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 6px;
+    color: #555;
+}
+
+/* Rounded Input Fields */
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 14px;
+    border: 2px solid #ddd;
+    border-radius: 50px; /* Circular input fields */
+    background: #fafafa;
+    color: #333;
+    font-size: 15px;
+    outline: none;
+    text-align: center;
+    transition: 0.3s ease-in-out;
+}
+
+/* Focus Effect */
+.form-group input:focus,
+.form-group select:focus {
+    background: #fff;
+    border: 2px solid #2D98DA;
+    box-shadow: 0 0 10px rgba(45, 152, 218, 0.3);
+}
+
+/* Submit Button */
+button {
+    width: 100%;
+    padding: 14px;
+    background: #2D98DA; /* Bright blue button */
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 12px rgba(45, 152, 218, 0.2);
+}
+
+button:hover {
+    background: #2184C3;
+    transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    .booking-container {
+        width: 90%;
+        padding: 25px;
+    }
+}

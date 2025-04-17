@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Approval</title>
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+    <h1>Pending Coach Applications</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Expertise</th>
+                <th>Qualifications</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="pendingCoachesTable">
+            <!-- Data will be dynamically loaded -->
+        </tbody>
+    </table>
+
+    <script>
+        // Fetch pending coach applications
+        fetch('../php/get_pending_coaches.php')
+            .then(response => response.json())
+            .then(data => {
+                const table = document.getElementById('pendingCoachesTable');
+                data.forEach(coach => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${coach.name}</td>
+                        <td>${coach.email}</td>
+                        <td>${coach.phone}</td>
+                        <td>${coach.expertise}</td>
+                        <td>${coach.qualifications}</td>
+                        <td>
+                            <button onclick="approveCoach(${coach.id})">Approve</button>
+                            <button onclick="rejectCoach(${coach.id})">Reject</button>
+                        </td>
+                    `;
+                    table.appendChild(row);
+                });
+            });
+
+        // Approve coach
+        function approveCoach(id) {
+            fetch(`../php/approve_coach.php?id=${id}`, { method: 'POST' })
+                .then(() => location.reload());
+        }
+
+        // Reject coach
+        function rejectCoach(id) {
+            fetch(`../php/reject_coach.php?id=${id}`, { method: 'POST' })
+                .then(() => location.reload());
+        }
+    </script>
+</body>
+</html>

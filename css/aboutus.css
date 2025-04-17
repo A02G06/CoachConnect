@@ -1,0 +1,84 @@
+/* General Page Styling */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #0f26f7, #4b9b90); /* Darker gradient */
+    color: white;
+    text-align: center;
+}
+
+/* Header */
+header {
+    padding: 20px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+/* About Container */
+.about-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 50px 20px;
+}
+
+.about-content {
+    max-width: 600px;
+    text-align: left;
+    padding: 20px;
+}
+
+.about-image img {
+    width: 100px;
+    max-width: 100px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    margin-left: 20px;
+}
+
+/* Mission Section */
+.mission-container {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    margin: 20px auto;
+    max-width: 800px;
+    border-radius: 10px;
+}
+
+.mission-container h2 {
+    margin-bottom: 10px;
+}
+
+/* Team Section */
+.team-container {
+    padding: 40px 20px;
+}
+
+.team-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.team-member {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 250px;
+}
+
+.team-member img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.team-member p {
+    margin-top: 10px;
+    font-weight: bold;
+}

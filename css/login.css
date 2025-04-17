@@ -1,0 +1,150 @@
+/* Reset styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #6b7af5, #5A67D8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    color: #333;
+}
+
+/* Login container */
+.login-container {
+    background: #ffffff;
+    padding: 40px 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.login-container h2 {
+    font-size: 28px;
+    color: #333333;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.login-container input {
+    width: 100%;
+    padding: 14px;
+    margin: 12px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    background: #f9f9f9;
+    transition: border-color 0.3s ease;
+}
+
+.login-container input:focus {
+    border-color: #5A67D8;
+    outline: none;
+}
+
+.login-container .checkbox-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 10px 0;
+    font-size: 14px;
+    color: #555555;
+}
+
+.login-container .checkbox-container input {
+    margin-right: 8px;
+}
+
+.login-container button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    background: #5A67D8;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.login-container button:hover {
+    background: #6b7af5;
+    transform: translateY(-2px);
+}
+
+.login-container p {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #555555;
+}
+
+.login-container a {
+    color: #5A67D8;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.login-container a:hover {
+    color: #6b7af5;
+    text-decoration: underline;
+}
+
+/* Dropdown field styles */
+.role-container {
+    margin: 20px ;
+}
+
+.role-container select {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    background: #f9f9f9;
+    transition: border-color 0.3s ease;
+}
+
+.role-container select:focus {
+    border-color: #5A67D8;
+    outline: none;
+}
+
+/* Password container styles */
+.password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-container input[type="password"],
+.password-container input[type="text"] {
+    width: 100%;
+    padding-right: 10px; /* Adjust padding since the eye icon is removed */
+    border-radius: 8px;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    .login-container {
+        padding: 30px 20px;
+    }
+
+    .login-container h2 {
+        font-size: 24px;
+    }
+
+    .login-container input,
+    .login-container button {
+        font-size: 14px;
+    }
+}

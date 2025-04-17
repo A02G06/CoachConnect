@@ -1,0 +1,258 @@
+
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #000000, #ffffff00);
+  color: rgba(0, 0, 0, 0.548);
+}
+
+/* Header */
+header {
+  background-color: rgba(0, 0, 0, 0.808);
+  padding: 15px 0;
+  text-align: center;
+  position: relative;
+}
+
+.container {
+  display: flex
+;
+  justify-content: space-between;
+  padding: 0 20px;
+  align-content: stretch;
+  align-items: flex-start;
+  flex-direction: row-reverse;
+}
+
+
+.logo img {
+  height: 60px;
+  width: auto;
+}
+
+.marquee-container {
+  width: 900px;
+  overflow: hidden;
+  white-space: nowrap;
+  
+  padding: 5px;
+  border-radius: 5px;
+  display: inline-block;
+  text-align: center;
+}
+
+.marquee-text {
+  font-size: 50px; /* Increased size */
+  font-weight: bold;
+  color: white;
+  display: inline-block;
+  animation: marquee-scroll 12s linear infinite;
+}
+
+@keyframes marquee-scroll {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+
+
+/* Navigation */
+nav ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+}
+
+nav ul li {
+  margin: 0 15px;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+  color: #3498db;
+}
+
+/* Banner Slider */
+.banner-slider {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.slider-container {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+  min-width: 100%;
+  position: relative;
+}
+
+.slide img {
+  width: 100%;
+  display: block;
+  height: 500px;
+  object-fit: cover;
+}
+
+.slide-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+}
+
+/* Main Content */
+.main-content {
+  text-align: center;
+  padding: 50px 20px;
+  color: #000000;
+}
+
+.cta-button, .overlay-button {
+  background-color: white;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.cta-button:hover, .overlay-button:hover {
+  background-color: #2980b9;
+}
+
+/* Footer */
+footer {
+  background-color: rgb(1 4 4 / 93%);
+  padding: 20px 0;
+  text-align: center;
+  margin-top: 50px;
+}
+
+.footer-container {
+  color: white;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.footer-section {
+  color: rgb(255, 255, 255);
+  flex: 1;
+  min-width: 250px;
+  padding: 10px;
+}
+
+.footer-section h4 {
+  text-decoration: underline;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin: 5px 0;
+}
+
+.footer-section ul li a {
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  transition: text-decoration 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+  text-decoration: underline;
+}
+
+.social-icons {
+  margin-top: 10px;
+}
+
+.social-icons a {
+  color: rgb(255, 255, 255);
+  font-size: 20px;
+  margin: 0 10px;
+  transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: #ffffff;
+}
+
+.footer-bottom {
+  background-color: rgba(0, 0, 0, 0.808);
+  color: white;
+  padding: 10px 0;
+}
+.why-choose {
+  text-align: center;
+  padding: 60px 20px;
+  background-color: #010404ed;
+}
+
+.why-choose h2 {
+  font-size: 32px;
+  color: #ffffff;
+  margin-bottom: 15px;
+}
+
+.why-tagline {
+  font-size: 18px;
+  color: #ffffff;
+  margin-bottom: 30px;
+}
+
+.features-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.feature-card {
+  width: 250px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.feature-card i {
+  font-size: 40px;
+  color: #007bff;
+  margin-bottom: 15px;
+}
+
+.feature-card h3 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.feature-card p {
+  font-size: 16px;
+  color: #666;
+}

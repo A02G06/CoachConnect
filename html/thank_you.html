@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You</title>
+    <link rel="stylesheet" href="../css/thank_you.css">
+    <script type="module" src="https://esm.run/fireworks-js"></script>
+</head>
+<body>
+    <!-- Fireworks Container -->
+    <div class="container"></div>
+
+    <!-- Main Content -->
+    <main>
+        <img src="../img/thank_you.gif" alt="Thank You Animation" class="thank-you-gif">
+        <p>Your booking has been successfully submitted. Our team will contact you shortly to confirm your session with the coach.</p>
+        <a href="../php/clientdb.php" class="return-dashboard-btn">Return to Dashboard</a>
+    </main>
+
+    <audio id="fireworks-audio" src="../Audio/fw.mp3" preload="auto"></audio>
+
+    <script type="module">
+        import { Fireworks } from 'https://esm.run/fireworks-js';
+
+        let container = document.querySelector('.container');
+        let audio = document.getElementById('fireworks-audio');
+
+        let options = {
+          gravity: 1.4,
+          opacity: 0.4,
+          autoresize: true,
+          acceleration: 1.00,
+        };
+
+        let fireworks = new Fireworks(container, options);
+        fireworks.start();
+
+        // Play audio when fireworks start
+        fireworks.start = function() {
+            audio.play();
+        };
+    </script>
+</body>
+</html>

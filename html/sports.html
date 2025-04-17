@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Trainers</title>
+    <link rel="stylesheet" href="../css/sports.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header class="header-banner" style="background-image: url('../img/run.jpg');">
+        <div class="header-content">
+            <h1>Sports Trainers</h1>
+            <p>Find top-tier coaches for various sports theory classes or in person classes.</p>
+        </div>
+    </header>
+
+    <section class="trainers-section">
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search for trainers..." onkeyup="filterTrainers()">
+        </div>
+        <div class="trainers-container">
+            <div class="trainer">
+                <img src="../img/trainer1.jpg" alt="Trainer 1">
+                <h3>Sarah Johnson - Football Coach</h3>
+                <p>Certified football coach specializing in beginner to advanced training.</p>
+                <p>Phone: +91 98765 43211</p>
+                <p>Email: <a href="mailto:sarah.johnson@coachconnect.com" style="color: blue;">sarah.johnson@coachconnect.com</a></p>
+                <button class="book-btn">
+                    <a href="../html/booking.html?trainer=Sarah%20Johnson&sport=Football">Book Now</a>
+                </button>
+            </div>
+            <div class="trainer">
+                <img src="../img/trainer2.jpg" alt="Trainer 2">
+                <h3>John Smith - Tennis Coach</h3>
+                <p>Expert tennis coach with 10+ years of experience in professional training.</p>
+                <p>Phone: +91 98765 43212</p>
+                <p>Email: <a href="mailto:john.smith@coachconnect.com" style="color: blue;">john.smith@coachconnect.com</a></p>
+                <button class="book-btn">
+                    <a href="../html/booking.html?trainer=John%20Smith&sport=Tennis">Book Now</a>
+                </button>
+            </div>
+            <div class="trainer">
+                <img src="../img/trainer3.jpg" alt="Trainer 3">
+                <h3>Michael Lee - Basketball coach</h3>
+                <p>Professional basketball trainer helping players improve their game strategies.</p>
+                <p>Phone: +91 98765 43213</p>
+                <p>Email: <a href="mailto:michael.lee@coachconnect.com" style="color: blue;">michael.lee@coachconnect.com</a></p>
+                <button class="book-btn">
+                    <a href="../html/booking.html?trainer=Michael%20Lee&sport=Basketball">Book Now</a>
+                </button>
+            </div>
+            <div class="trainer">
+                <img src="../img/trainer4.jpg" alt="Trainer 4">
+                <h3>David Carter - Swimming Coach</h3>
+                <p>Former Olympic swimmer offering training for all levels.</p>
+                <p>Phone: +91 98765 43214</p>
+                <p>Email: <a href="mailto:david.carter@coachconnect.com" style="color: blue;">david.carter@coachconnect.com</a></p>
+                <button class="book-btn">
+                    <a href="../html/booking.html?trainer=David%20Carter&sport=Swimming">Book Now</a>
+                </button>
+            </div>
+            <div class="trainer">
+                <img src="../img/trainer5.jpg" alt="Trainer 5 ">
+                <h3>Emma White - Gymnastics Coach</h3>
+                <p>Certified gymnastics trainer specializing in flexibility and strength training.</p>
+                <p>Phone: +91 98765 43215</p>
+                <p>Email: <a href="mailto:emma.white@coachconnect.com" style="color: blue;">emma.white@coachconnect.com</a></p>
+                <button class="book-btn">
+                    <a href="../html/booking.html?trainer=Emma%20White&sport=Gymnastics">Book Now</a>
+                </button>
+            </div>
+            <div class="trainer">
+                <img src="../img/trainer6.jpg" alt="Trainer 6 ">
+                <h3>Chris Martin - Boxing Coach</h3>
+                <p>Professional boxing trainer with years of experience in competitive training.</p>
+                <p>Phone: +91 98765 43216</p>
+                <p>Email: <a href="mailto:chris.martin@coachconnect.com" style="color: blue;">chris.martin@coachconnect.com</a></p>
+                <button class="book-btn">
+                    <a href="../html/booking.html?trainer=Chris%20Martin&sport=Boxing">Book Now</a>
+                </button>
+            </div>
+            <div class="trainer">
+                <img src="../img/trainer7.jpg" alt="Trainer 7">
+                <h3>Olivia Brown - Yoga Instructor</h3>
+                <p>Certified yoga instructor focusing on strength, balance, and mindfulness.</p>
+                <p>Phone: +91 98765 43217</p>
+                <p>Email: <a href="mailto:olivia.brown@coachconnect.com" style="color: blue;">olivia.brown@coachconnect.com</a></p>
+                <button class="book-btn">
+                    <a href="../html/booking.html?trainer=Olivia%20Brown&sport=Yoga">Book Now</a>
+                </button>
+            </div>
+            <div class="trainer">
+                <img src="../img/trainer8.jpg" alt="Trainer 8 ">
+                <h3>Emma White - Pilates Coach</h3>
+                <p>Certified Pilates trainer specializing in flexibility and strength training.</p>
+                <p>Phone: +91 98765 43218</p>
+                <p>Email: <a href="mailto:emma.white.pilates@coachconnect.com" style="color: blue;">emma.white.pilates@coachconnect.com</a></p>
+                <button class="book-btn">
+                    <a href="../html/booking.html?trainer=Emma%20White&sport=Pilates">Book Now</a>
+                </button>
+            </div>
+            <div class="trainer">
+                <img src="../img/trainer9.jpg" alt="Trainer 9">
+                <h3>David Carter - Golf Coach</h3>
+                <p>Professional golf coach offering lessons for beginners and advanced players.</p>
+                <p>Phone: +91 98765 43219</p>
+                <p>Email: <a href="mailto:david.carter.golf@coachconnect.com" style="color: blue;">david.carter.golf@coachconnect.com</a></p>
+                <button class="book-btn">
+                    <a href="../html/booking.html?trainer=David%20Carter&sport=Golf">Book Now</a>
+                </button>
+            </div>
+            <div class="trainer">
+                <img src="../img/trainer10.jpg" alt="Trainer 10">
+                <h3>Daniel Wilson - Martial Arts Trainer</h3>
+                <p>Black belt instructor offering classes in karate, taekwondo, and jiu-jitsu.</p>
+                <p>Phone: +91 98765 43220</p>
+                <p>Email: <a href="mailto:daniel.wilson@coachconnect.com" style="color: blue;">daniel.wilson@coachconnect.com</a></p>
+                <button class="book-btn">
+                    <a href="../html/booking.html?trainer=Daniel%20Wilson&sport=Martial%20Arts">Book Now</a>
+                </button>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>Contact Us</h4>
+                <p>Email: <a href="mailto:support@coachingplatform.com" style="color: blue;">support@coachingplatform.com</a></p>
+                <p>Phone: <a href="tel:+919876543210">+91 98765 43210</a></p>
+                <p>Address: 123, Main Street, Bangalore, India</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#">Help</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Feedback</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <div class="social-icons">
+                    <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            © 2025 Coach Connect. All Rights Reserved.
+        </div>
+    </footer>
+
+    
+    <script>
+        function filterTrainers() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const trainers = document.querySelectorAll('.trainer');
+            trainers.forEach(trainer => {
+                const text = trainer.textContent.toLowerCase();
+                trainer.style.display = text.includes(input) ? '' : 'none';
+            });
+        }
+
+        function handleFormSubmission(event) {
+            event.preventDefault(); // Prevent the default form submission
+            // Perform any additional actions here (e.g., form validation, AJAX request)
+            window.location.href = "../html/thankyou.html"; // Redirect to the thank-you page
+        }
+    </script>
+    <form onsubmit="handleFormSubmission(event)">
+        <!-- Form fields go here -->
+    </form>
+</body>
+</html>
