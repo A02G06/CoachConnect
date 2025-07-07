@@ -1,3 +1,36 @@
+
+<?php
+session_start();
+include '../php/php_backup.php';
+
+// Check if the trainer is logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php"); // Redirect to login if not logged in
+    exit();
+}
+
+$trainer_id = $_SESSION['user_id']; // Get the logged-in trainer's ID
+
+// Fetch trainer details from the database
+$stmt = $conn->prepare("SELECT name, email, phone FROM trainers WHERE trainer_id = ?");
+if (!$stmt) {
+    die("Error preparing statement: " . $conn->error);
+}
+$stmt->bind_param("i", $trainer_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows === 1) {
+    $trainer = $result->fetch_assoc();
+    $trainer_name = htmlspecialchars($trainer['name']);
+    $trainer_email = htmlspecialchars($trainer['email']);
+    $trainer_phone = htmlspecialchars($trainer['phone']);
+} else {
+    die("Trainer not found.");
+}
+$stmt->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,15 +77,16 @@
         <div class="container">
             <div class="logo">
                 <a href="../php/home_loggedin.php">
-                    <img src="../img/logo.png.webp" alt="Coach Connect Logo">
+                    <img src="../img/logo.png" alt="Coach Connect Logo">
                 </a>
             </div>
             <nav>
-                <ul>
-                    <li><a href="../php/home_loggedin.php">Home</a></li>
-                    <li><a href="../html/aboutus.html">About Us</a></li>
-                </ul>
-            </nav>
+    <ul>
+        <li><a href="../html/aboutus.html">About Us</a></li>
+        <li><a href="../php/logout.php">Logout</a></li>
+    </ul>
+</nav>
+
         </div>
     </header>
 
@@ -62,10 +96,10 @@
         <!-- Profile Section -->
         <div class="profile-section">
             <h2>Trainer Profile</h2>
-            <img id="trainerProfilePicture" src="../images/default-profile.png" alt="Profile Picture">
-            <p>Name: <span id="trainerName">John Doe</span></p>
-            <p>Email: <span id="trainerEmail">johndoe@example.com</span></p>
-            <p>Phone: <span id="trainerPhone">+91 98765 43210</span></p>
+
+            <p>Name: <span id="trainerName"><?php echo $trainer_name; ?></span></p>
+            <p>Email: <span id="trainerEmail"><?php echo $trainer_email; ?></span></p>
+            <p>Phone: <span id="trainerPhone"><?php echo $trainer_phone; ?></span></p>
         </div>
 
         <!-- File Upload Section -->
@@ -82,7 +116,30 @@
         <!-- Calendar Section -->
         <div class="calendar-section">
             <h2>Schedule</h2>
-            <div id="calendar">Your calendar will appear here.</div>
+            <div id="calendar">
+                <?php
+                // Fetch bookings for the logged-in trainer
+                $stmt = $conn->prepare("SELECT b.booking_date, u.name AS client_name
+                                        FROM bookings b
+                                        JOIN users u ON b.user_id = u.user_id
+                                        WHERE b.trainer_id = ?
+                                        ORDER BY b.booking_date ASC");
+                $stmt->bind_param("i", $trainer_id);
+                $stmt->execute();
+                $result = $stmt->get_result();
+
+                if ($result->num_rows > 0) {
+                    echo "<ul>";
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<li>Date: " . htmlspecialchars($row['booking_date']) . " - Client: " . htmlspecialchars($row['client_name']) . "</li>";
+                    }
+                    echo "</ul>";
+                } else {
+                    echo "<p>No bookings scheduled.</p>";
+                }
+                $stmt->close();
+                ?>
+            </div>
         </div>
     </div>
 

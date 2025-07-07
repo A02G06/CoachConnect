@@ -6,25 +6,69 @@
     <title>Book Your Trainer</title>
     <link rel="stylesheet" href="../css/booking.css">
     <script>
-        // Function to get query parameters from the URL
-        function getQueryParam(param) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(param);
-        }
-
         document.addEventListener('DOMContentLoaded', () => {
-            // Set the trainer name and ID in the form
+            // Function to get query parameters from the URL
+            function getQueryParam(param) {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get(param);
+            }
+
+            // Retrieve trainer name and ID from the URL
             const trainerName = getQueryParam('trainer');
             const trainerId = getQueryParam('trainer_id'); // Retrieve trainer_id from URL
 
-            if (trainerName) {
-                document.getElementById('trainerName').textContent = trainerName;
-                document.getElementById('trainerInput').value = trainerName;
+            if (trainerId) {
+                // Populate the hidden input fields if trainer_id exists
+                document.getElementById('trainerIdInput').value = trainerId;
+                if (trainerName) {
+                    document.getElementById('trainerName').textContent = trainerName;
+                    document.getElementById('trainerInput').value = trainerName;
+                }
+            } else {
+                // Redirect to the trainer list if trainer_id is missing (no popup)
+                window.location.href = "../php/trainers_list.php";
             }
 
-            if (trainerId) {
-                document.getElementById('trainerIdInput').value = trainerId; // Set trainer_id
+            // Time and payment logic
+            const startInput = document.getElementById('preferredTime');
+            const endInput = document.getElementById('endTime');
+            const addHourBtn = document.getElementById('addHourBtn');
+            const paymentInput = document.getElementById('payment');
+            const paymentDisplay = document.getElementById('paymentDisplay');
+
+            let sessionHours = 2; // default session is 2 hours
+
+            function setEndTimeAndPayment() {
+                const startTime = startInput.value;
+                if (startTime) {
+                    let [hours, minutes] = startTime.split(':').map(Number);
+                    let endHours = hours + sessionHours;
+                    if (endHours >= 24) endHours -= 24;
+                    endInput.value = `${endHours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+                    let amount = sessionHours * 150;
+                    paymentInput.value = amount;
+                    paymentDisplay.textContent = amount;
+                } else {
+                    endInput.value = '';
+                    paymentInput.value = '';
+                    paymentDisplay.textContent = '';
+                }
             }
+
+            startInput.addEventListener('change', () => {
+                sessionHours = 2; // reset to 2 hours on new start time
+                setEndTimeAndPayment();
+            });
+
+            addHourBtn.addEventListener('click', () => {
+                if (startInput.value) {
+                    sessionHours += 1;
+                    setEndTimeAndPayment();
+                }
+            });
+
+            // Initialize if start time is pre-filled
+            if (startInput.value) setEndTimeAndPayment();
         });
     </script>
 </head>
@@ -56,13 +100,30 @@
             </div>
 
             <div class="form-group">
-                <label for="preferredTime">Preferred Time:</label>
+                <label for="preferredTime">Preferred Start Time:</label>
                 <input type="time" id="preferredTime" name="preferred_time" required>
             </div>
 
             <div class="form-group">
+                <label for="endTime">End Time:</label>
+                <input type="time" id="endTime" name="end_time" readonly required>
+                <button type="button" id="addHourBtn" style="margin-left:10px;">Add Extra Time (+1 hr)</button>
+            </div>
+
+            <div class="form-group">
+                <label for="payment">Payment Amount:</label>
+                <input type="text" id="payment" name="payment" value="300" readonly>
+                <span style="margin-left:5px;">&#8377; <span id="paymentDisplay">300</span></span>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 15px;">
+                <input type="checkbox" id="payment_agree" name="payment_agree" required>
+                <label for="payment_agree" style="display:inline;">I am willing to pay to attend this session</label>
+            </div>
+
+            <div class="form-group">
                 <label for="sessionType">Session Type:</label>
-                <select id="sessionType" name="sessionType" required>
+                <select id="sessionType" name="session_type" required>
                     <option value="" disabled selected>Select session type</option>
                     <option value="In-person">In-person</option>
                     <option value="Online">Online</option>
@@ -71,7 +132,6 @@
 
             <button type="submit">Submit Booking</button>
         </form>
-        
     </div>
 </body>
 </html>

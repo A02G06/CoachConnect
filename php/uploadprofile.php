@@ -1,40 +1,25 @@
 <?php
 session_start();
-include 'php_backup.php';
 
-if (!isset($_SESSION['user_id'])) {
-    http_response_code(403);
-    echo "Not logged in.";
-    exit;
-}
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!isset($_FILES['profilePic']) || !isset($_POST['userId'])) {
+        die("Invalid request.");
+    }
 
-$userId = $_SESSION['user_id'];
-
-// Get name
-$query = "SELECT name FROM users WHERE id = ?";
-$stmt = $conn->prepare($query);
-$stmt->bind_param("i", $userId);
-$stmt->execute();
-$result = $stmt->get_result();
-$user = $result->fetch_assoc();
-$name = $user['name'];
-
-// Handle uploaded image
-if (isset($_FILES['profilePic']) && $_FILES['profilePic']['error'] == 0) {
-    $uploadDir = "../uploads/";
-    $targetFile = $uploadDir . $name . ".jpg"; // Use name for the filename
+    $userId = intval($_POST['userId']);
+    $uploadDir = "../users/";
+    $uploadFile = $uploadDir . $userId . ".jpg";
 
     // Ensure the upload directory exists
     if (!is_dir($uploadDir)) {
         mkdir($uploadDir, 0777, true);
     }
 
-    if (move_uploaded_file($_FILES['profilePic']['tmp_name'], $targetFile)) {
-        echo "Profile picture updated!";
+    // Move the uploaded file
+    if (move_uploaded_file($_FILES['profilePic']['tmp_name'], $uploadFile)) {
+        echo "Profile picture uploaded successfully.";
     } else {
-        echo "Failed to move uploaded file.";
+        echo "Failed to upload profile picture.";
     }
-} else {
-    echo "Upload failed.";
 }
 ?>

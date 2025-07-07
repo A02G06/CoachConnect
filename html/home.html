@@ -12,7 +12,7 @@
         <div class="container">
             <div class="logo">
                 <a href="../html/home.html">
-                    <img src="../img/logo.png.webp" alt="Coach Connect Logo">
+                    <img src="../img/logo.png" alt="Coach Connect Logo">
                 </a>
             </div>
             <div class="marquee-container">
@@ -29,7 +29,8 @@
     </header>
 
     <section class="banner-slider">
-        <div class="slider-container">
+        <div class="slider-container" id="sliderContainer">
+
             <div class="slide">
                 <img src="../img/ai-trainer.jpg" alt="Empower Your Learning">
                 <div class="slide-content">
@@ -38,14 +39,14 @@
                 </div>
             </div>
             <div class="slide">
-                <img src="../img/arbeitsgruppe-tisch-css-karriere-job-martin-regli-radwa-maria-13_image-16-9 (1).avif" alt="Achieve Your Goals">
+                <img src="../img/braden-collum-9HI8UJMSdZA-unsplash.jpg" alt="Achieve Your Goals">
                 <div class="slide-content">
                     <h2>Achieve Your Goals</h2>
                     <p>Personalized coaching for your success.</p>
                 </div>
             </div>
             <div class="slide">
-                <img src="../img/arbeitsgruppe-tisch-css-karriere-job-martin-regli-radwa-maria-13_image-16-9 (2).avif" alt="Unlock Your Potential">
+                <img src="../img/arbeitsgruppe-tisch-css-karriere-job-martin-regli-radwa-maria-13_image-16-9 (1).avif" alt="Unlock Your Potential">
                 <div class="slide-content">
                     <h2>Unlock Your Potential</h2>
                     <p>Start your journey now.</p>
@@ -126,6 +127,21 @@
         </div>
     </footer>
 
-    <script src="../js/script.js"></script>
+    <script>
+  const sliderContainer = document.getElementById("sliderContainer");
+  const slides = document.querySelectorAll(".slide");
+  const totalSlides = slides.length;
+
+  let currentIndex = 0;
+
+  function moveToNextSlide() {
+    currentIndex = (currentIndex + 1) % totalSlides;
+    sliderContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+  }
+
+  // Change slide every 5 seconds
+  setInterval(moveToNextSlide, 2000);
+</script>
+
 </body>
 </html>

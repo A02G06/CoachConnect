@@ -11,43 +11,27 @@
     <div class="signup-container">
         <h2>Sign Up</h2>
         <form action="../php/php_backup.php" method="POST" onsubmit="return validatePassword()">
-            <label for="name">Name: <span style="color: red;">*</span></label>
+            <label for="name">Name <span style="color: red;">*</span></label>
             <input type="text" id="name" name="name" placeholder="Name" required>
             
-            <label for="email">Email: <span style="color: red;">*</span></label>
+            <label for="email">Email <span style="color: red;">*</span></label>
             <input type="email" id="email" name="email" placeholder="Email" required>
             
-            <label for="phone">Phone Number: <span style="color: red;">*</span></label>
+            <label for="phone">Phone Number <span style="color: red;">*</span></label>
             <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" placeholder="Phone Number" required>
             
-            <label for="password">Password: <span style="color: red;">*</span></label>
+            <label for="password">Password <span style="color: red;">*</span></label>
             <div style="position: relative;">
                 <input type="password" id="password" name="password" placeholder="Password" required style="padding-right: 30px;">
                 <i id="toggle-password" class="fa fa-eye" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;"></i>
             </div>
             <p id="password-error" style="color: red; display: none;">Password must be at least 8 characters long and include a number and a special character.</p>
             
-            <label for="role">Role: <span style="color: red;">*</span></label>
-            <select id="role" name="role" required>
-                <option value="client">Client</option>
-                <option value="new_coach">New Coach</option>
-            </select>
-
-            <div id="coachFields" style="display: none;">
-                <label>Expertise: <span style="color: red;">*</span></label>
-                <div>
-                    <input type="checkbox" id="sports" name="expertise[]" value="sports">
-                    <label for="sports">Sports</label>
-                </div>
-                <div>
-                    <input type="checkbox" id="music" name="expertise[]" value="music">
-                    <label for="music">Music</label>
-                </div>
-                <div>
-                    <input type="checkbox" id="education" name="expertise[]" value="education">
-                    <label for="education">Education</label>
-                </div>
+            <label for="role">Role <span style="color: red;"></span></label>
+            <div id="role" style="background-color: #f0f0f0; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                Client
             </div>
+            <input type="hidden" name="role" value="client">
             
             <button type="submit" name="signup">Sign Up</button>
         </form>
@@ -59,7 +43,6 @@
             const type = passwordField.type === "password" ? "text" : "password";
             passwordField.type = type;
 
-            // Ensure only Font Awesome classes are toggled
             this.classList.toggle("fa-eye");
             this.classList.toggle("fa-eye-slash");
         });
@@ -77,16 +60,6 @@
             passwordError.style.display = "none";
             return true;
         }
-
-        document.getElementById('role').addEventListener('change', function () {
-            const coachFields = document.getElementById('coachFields');
-            if (this.value === 'new_coach') {
-                coachFields.style.display = 'block';
-            } else {
-                coachFields.style.display = 'none';
-            }
-        });
     </script>
-    
 </body>
 </html>

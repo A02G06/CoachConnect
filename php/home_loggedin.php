@@ -1,6 +1,6 @@
-<!-- filepath: c:\xampp\htdocs\CoachConnect\html\home_loggedin.php -->
 <?php
-session_start(); // Start the session
+session_start();
+include 'php_backup.php';
 
 // Debugging: Output session variables for inspection
 error_log("Session Variables: " . print_r($_SESSION, true));
@@ -14,6 +14,27 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 
 // Retrieve user's name or email from the session
 $userName = $_SESSION['name'] ?? $_SESSION['email'];
+
+// Fetch upcoming bookings from the database
+$upcomingBookings = [];
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+    $stmt = $conn->prepare("
+        SELECT t.name AS trainer_name, b.booking_date
+        FROM bookings b
+        INNER JOIN trainers t ON b.trainer_id = t.trainer_id
+        WHERE b.user_id = ? AND b.booking_date >= CURDATE()
+        ORDER BY b.booking_date ASC
+        LIMIT 3
+    ");
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    while ($row = $result->fetch_assoc()) {
+        $upcomingBookings[] = $row;
+    }
+    $stmt->close();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,13 +44,35 @@ $userName = $_SESSION['name'] ?? $_SESSION['email'];
     <title>Coach Connect - Smart Scheduling</title>
     <link rel="stylesheet" href="../css/home.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .overlay-button {
+            background: #007bff;
+            color: #fff !important;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 5px;
+            font-size: 1.1em;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: background 0.2s;
+        }
+        .overlay-button:hover {
+            background: #0056b3;
+            color: #fff !important;
+        }
+        .welcome-banner h2,
+        .welcome-banner p {
+            color: #fff !important;
+        }
+    </style>
 </head>
 <body>
     <header>
         <div class="container">
             <div class="logo">
                 <a href="home_loggedin.php">
-                    <img src="../img/logo.png.webp" alt="Coach Connect Logo">
+                    <img src="../img/logo.png" alt="Coach Connect Logo">
                 </a>
             </div>
             <div class="marquee-container">
@@ -38,14 +81,22 @@ $userName = $_SESSION['name'] ?? $_SESSION['email'];
             <nav>
                 <ul>
                     <li><a href="../php/logout.php">Logout</a></li>
+                    <li><a href="../php/clientdb.php">Dashboard</a></li>
                     <li><a href="../html/aboutus.html">About Us</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <section class="banner-slider">
-        <div class="slider-container">
+    <!-- Personalized Welcome -->
+    <section class="welcome-banner" style="text-align:center; margin: 30px 0 10px 0;">
+        <h2>Welcome back, <?php echo htmlspecialchars($userName); ?>!</h2>
+        <p>We're glad to see you again. Ready for your next session?</p>
+    </section>
+
+     <section class="banner-slider">
+        <div class="slider-container" id="sliderContainer">
+
             <div class="slide">
                 <img src="../img/ai-trainer.jpg" alt="Empower Your Learning">
                 <div class="slide-content">
@@ -54,28 +105,26 @@ $userName = $_SESSION['name'] ?? $_SESSION['email'];
                 </div>
             </div>
             <div class="slide">
-                <img src="../img/arbeitsgruppe-tisch-css-karriere-job-martin-regli-radwa-maria-13_image-16-9 (1).avif" alt="Achieve Your Goals">
+                <img src="../img/braden-collum-9HI8UJMSdZA-unsplash.jpg" alt="Achieve Your Goals">
                 <div class="slide-content">
                     <h2>Achieve Your Goals</h2>
                     <p>Personalized coaching for your success.</p>
                 </div>
             </div>
             <div class="slide">
-                <img src="../img/arbeitsgruppe-tisch-css-karriere-job-martin-regli-radwa-maria-13_image-16-9 (2).avif" alt="Unlock Your Potential">
+                <img src="../img/arbeitsgruppe-tisch-css-karriere-job-martin-regli-radwa-maria-13_image-16-9 (1).avif" alt="Unlock Your Potential">
                 <div class="slide-content">
                     <h2>Unlock Your Potential</h2>
                     <p>Start your journey now.</p>
                 </div>
             </div>
         </div>
-    </section>
+        </section>
 
     <section class="main-content">
         <h2>Connect with Experienced Coaches</h2>
         <p>Book one-on-one appointments with specialized and general coaches to enhance your learning journey.</p>
-        <button class="overlay-button">
-            <a href="../php/booknow.php" class="overlay-button">Book Now</a>
-        </button>
+        <a href="../php/booknow.php" class="overlay-button">Book Now</a>
     </section>
 
     <section class="why-choose">
@@ -134,5 +183,20 @@ $userName = $_SESSION['name'] ?? $_SESSION['email'];
             <p>&copy; 2025 Coach Connect. All Rights Reserved.</p>
         </div>
     </footer>
+    <script>
+  const sliderContainer = document.getElementById("sliderContainer");
+  const slides = document.querySelectorAll(".slide");
+  const totalSlides = slides.length;
+
+  let currentIndex = 0;
+
+  function moveToNextSlide() {
+    currentIndex = (currentIndex + 1) % totalSlides;
+    sliderContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+  }
+
+  // Change slide every 5 seconds
+  setInterval(moveToNextSlide, 2000);
+</script>
 </body>
 </html>

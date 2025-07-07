@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['resourceFile'])) {
     }
 
     if (move_uploaded_file($_FILES['resourceFile']['tmp_name'], $uploadFile)) {
-        header("Location: ../html/trainersdash.html?upload=success");
+        header("Location: ../php/trainersdash.php?upload=success");
         exit;
     } else {
         echo "Error uploading file.";

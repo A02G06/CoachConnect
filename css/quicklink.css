@@ -1,28 +1,48 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
+html, body {
+    height: 100%;
     margin: 0;
     padding: 0;
 }
 
-.container {
-    width: 80%;
-    margin: auto;
-    overflow: hidden;
+.page-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* centers vertically */
+    min-height: 100vh;
 }
 
+.content-wrapper {
+    flex: 1;
+}
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+
+
 header {
-    background: #0073e6;
+    background: #0e0f0f;
     color: white;
     padding: 20px 0;
     text-align: center;
 }
 
-header .logo img {
-    max-width: 150px;
+header .container {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    text-align: left; 
 }
 
+header.header-left .container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+/*
 nav ul {
     padding: 0;
     list-style: none;
@@ -38,7 +58,7 @@ nav ul li a {
     color: white;
     text-decoration: none;
     font-size: 18px;
-}
+}*/
 
 .quick-links {
     padding: 50px 0;
@@ -46,21 +66,26 @@ nav ul li a {
 }
 
 .quick-links h2 {
-    font-size: 32px;
+    font-size: 35px;
     margin-bottom: 20px;
 }
 
 .quick-links-grid {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    align-items: center;
+    gap: 55px;
     flex-wrap: wrap;
+    max-width: 5000px;  
+    margin: 80px auto;  
 }
 
 .link-card {
     background: white;
     padding: 20px;
-    width: 300px;
+    flex: 1 1 30%;       /* allow cards to grow and fill space */
+    max-width: 400px;     /* limit maximum width */
+    min-width: 250px;     /* ensure cards don't get too narrow */
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -95,6 +120,7 @@ footer {
     color: white;
     padding: 20px 0;
     text-align: center;
+    margin-top: auto;
 }
 
 footer a {

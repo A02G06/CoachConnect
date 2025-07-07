@@ -256,3 +256,8 @@ footer {
   font-size: 16px;
   color: #666;
 }
+/* Add this at the end of your CSS file or in a relevant section */
+
+.welcome-banner {
+  color: #fff;
+}

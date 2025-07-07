@@ -1,17 +1,30 @@
 /* General Page Styling */
 body {
-    margin: 0;
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #0f26f7, #4b9b90); /* Darker gradient */
-    color: white;
-    text-align: center;
+    font-family: Arial, sans-serif;
+    margin: 10;
+    padding: 10;
+    background: linear-gradient(135deg, #000000, #ffffff00);
+    color: rgba(0, 0, 0, 0.548);
+  }
+
+  header {
+    padding: 20px;
+    font-size: 10px;
+    font-weight: bold;
+    background: #1a1a2e; /* Dark background */
+    color: #fff;
 }
 
-/* Header */
-header {
-    padding: 20px;
-    font-size: 28px;
-    font-weight: bold;
+header h1 {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 5rem;
+    letter-spacing: 2px;
+    color: white;
+}
+
+main {
+    margin-top: 40px; /* Adjust this value to control the gap */
 }
 
 /* About Container */
@@ -20,7 +33,7 @@ header {
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    padding: 50px 20px;
+    padding: 100px 20px;
 }
 
 .about-content {

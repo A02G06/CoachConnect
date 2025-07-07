@@ -4,37 +4,192 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us - Coach Connect</title>
-    <link rel="stylesheet" href="../css/aboutus.css">
+    <link rel="stylesheet" href="../css/home.css">
+    <style>
+        .about-container, .mission-container, .vision-container, .values-container, .testimonials-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            margin-bottom: 30px;
+        }
+        .team-grid {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .team-member {
+            text-align: center;
+            max-width: 300px;
+        }
+        .team-member img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+        .testimonials-container blockquote {
+            font-style: italic;
+            color: #555;
+            margin: 20px 0;
+        }
+        .cta-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .cta-container a {
+            text-decoration: none;
+            color: white;
+            background-color: #007BFF;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+        .cta-container a:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>About Us</h1>
+        <div class="container">
+            <div class="logo">
+                <a href="../php/home_loggedin.php">
+                    <img src="../img/logo.png" alt="Coach Connect Logo">
+                </a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../php/home_loggedin.php">Home</a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+        <h1 style="text-align:center; margin-top: 1px; font-size: 2rem; letter-spacing: 2px; color: white;">About Us</h1>
     </header>
-    <section class="about-container">
-        <div class="about-content">
+
+    <main>
+        <section class="about-container">
             <h2>Our Story</h2>
             <p>Welcome to <strong>Coach Connect</strong>, a platform founded by <strong>Anna Grace and Sanjeev S</strong>. Our journey began with a simple yet powerful idea: <strong>to bridge the gap between learners and expert trainers</strong>. 
                Recognizing the difficulties many individuals face in accessing quality coaching, we set out to create a platform that makes learning more <strong>accessible, efficient, and impactful</strong>. 
                What started as a vision soon turned into a reality, and today, Coach Connect stands as a trusted space where learners can find the right guidance to achieve their goals.</p>
-        </div>
+        </section>
+
+        <section class="mission-container">
+            <h2>Our Mission</h2>
+            <p>At <strong>Coach Connect</strong>, our mission is to <strong>empower individuals</strong> by providing access to top-tier trainers, fostering an environment where learning is seamless, personalized, and transformative.</p>
+        </section>
+
+        <section class="vision-container">
+            <h2>Our Vision</h2>
+            <p>We envision a world where everyone has access to the resources and guidance they need to achieve their personal and professional goals. By leveraging technology and innovation, we aim to create a global community of learners and trainers.</p>
+        </section>
+
+        <section class="values-container">
+            <h2>Our Core Values</h2>
+            <ul>
+                <li><strong>Innovation:</strong> Continuously improving and adapting to meet the needs of our users.</li>
+                <li><strong>Accessibility:</strong> Making quality coaching available to everyone, everywhere.</li>
+                <li><strong>Excellence:</strong> Striving for the highest standards in everything we do.</li>
+            </ul>
+        </section>
+
+        <section class="team-container">
+            <h2 style="text-align: center;">Meet Our Founders</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="../img/AnnaGrace.jpeg" alt="Anna Grace">
+                    <p><strong>Anna Grace</strong> - Co-Founder<br>Passionate about education and innovation, Anna believes in creating opportunities for learners to grow and thrive.</p>
+                </div>
+                <div class="team-member">
+                    <img src="../img/SanjeevS.jpeg" alt="Sanjeev S">
+                    <p><strong>Sanjeev S</strong> - Co-Founder<br>With a keen eye for technology and strategy, Sanjeev ensures that Coach Connect remains a cutting-edge platform for learners and trainers alike.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials-container">
+            <h2>What Our Users Say</h2>
+            <div class="testimonial-slider">
+                <div class="testimonial-slide">
+                    <blockquote>"Coach Connect has transformed the way I learn. The trainers are amazing, and the platform is so easy to use!" - <strong>Jane Doe</strong></blockquote>
+                    <blockquote>"As a trainer, Coach Connect has helped me reach more clients and grow my business." - <strong>John Smith</strong></blockquote>
+                    <blockquote>"The personalized coaching sessions have been a game-changer for me!" - <strong>Emily Carter</strong></blockquote>
+                    <blockquote>"I love how easy it is to find the right trainer for my needs." - <strong>Michael Brown</strong></blockquote>
+                    <blockquote>"Coach Connect is the best platform for connecting with professional trainers." - <strong>Sarah Wilson</strong></blockquote>
+                    <blockquote>"The user interface is so intuitive and easy to navigate." - <strong>David Lee</strong></blockquote>
+                    <blockquote>"I’ve improved my skills significantly thanks to Coach Connect." - <strong>Olivia Taylor</strong></blockquote>
+                    <blockquote>"The trainers are highly qualified and very supportive." - <strong>Chris Martin</strong></blockquote>
+                    <blockquote>"I’ve recommended Coach Connect to all my friends!" - <strong>Jessica White</strong></blockquote>
+                    <blockquote>"The platform is reliable and offers great value for money." - <strong>Daniel Harris</strong></blockquote>
+                    <blockquote>"Coach Connect has made learning so much more accessible for me." - <strong>Emma Walker</strong></blockquote>
+                    <blockquote>"The scheduling feature is so convenient and easy to use." - <strong>James Hall</strong></blockquote>
+                    <blockquote>"I’ve found the perfect coach for my fitness journey!" - <strong>Laura Allen</strong></blockquote>
+                    <blockquote>"The customer support team is very responsive and helpful." - <strong>Andrew Scott</strong></blockquote>
+                    <blockquote>"Coach Connect has exceeded all my expectations." - <strong>Grace King</strong></blockquote>
+                    <blockquote>"The platform is constantly improving and adding new features." - <strong>Matthew Wright</strong></blockquote>
+                    <blockquote>"I’ve achieved my goals faster with the help of Coach Connect." - <strong>Sophia Green</strong></blockquote>
+                    <blockquote>"The trainers are very professional and knowledgeable." - <strong>Benjamin Adams</strong></blockquote>
+                    <blockquote>"I love the variety of trainers available on the platform." - <strong>Isabella Nelson</strong></blockquote>
+                    <blockquote>"Coach Connect has made learning fun and engaging." - <strong>Lucas Carter</strong></blockquote>
+                    <blockquote>"The platform is very user-friendly and well-designed." - <strong>Amelia Mitchell</strong></blockquote>
+                    <blockquote>"I’ve gained so much confidence thanks to my coach." - <strong>Ethan Perez</strong></blockquote>
+                    <blockquote>"The booking process is seamless and hassle-free." - <strong>Charlotte Turner</strong></blockquote>
+                    <blockquote>"Coach Connect is the best investment I’ve made in myself." - <strong>Henry Collins</strong></blockquote>
+                    <!-- Duplicate testimonials to create a seamless loop -->
+                    <blockquote>"Coach Connect has transformed the way I learn. The trainers are amazing, and the platform is so easy to use!" - <strong>Jane Doe</strong></blockquote>
+                    <blockquote>"As a trainer, Coach Connect has helped me reach more clients and grow my business." - <strong>John Smith</strong></blockquote>
+                    <blockquote>"The personalized coaching sessions have been a game-changer for me!" - <strong>Emily Carter</strong></blockquote>
+                    <blockquote>"I love how easy it is to find the right trainer for my needs." - <strong>Michael Brown</strong></blockquote>
+                    <blockquote>"Coach Connect is the best platform for connecting with professional trainers." - <strong>Sarah Wilson</strong></blockquote>
+                </div>
+            </div>
+        </section>
         
-    </section>
-    <section class="mission-container">
-        <h2>Our Mission</h2>
-        <p>At <strong>Coach Connect</strong>, our mission is to <strong>empower individuals</strong> by providing access to top-tier trainers, fostering an environment where learning is seamless, personalized, and transformative.</p>
-    </section>
-    <section class="team-container">
-        <h2>Meet Our Founders</h2>
-        <div class="team-grid">
-            <div class="team-member">
-                <img src="../img/AnnaGrace.jpeg" alt="Anna Grace">
-                <p><strong>Anna Grace</strong> - Co-Founder<br>Passionate about education and innovation, Anna believes in creating opportunities for learners to grow and thrive.</p>
-            </div>
-            <div class="team-member">
-                <img src="../img/SanjeevS.jpeg" alt="Sanjeev S">
-                <p><strong>Sanjeev S</strong> - Co-Founder<br>With a keen eye for technology and strategy, Sanjeev ensures that Coach Connect remains a cutting-edge platform for learners and trainers alike.</p>
-            </div>
+        <style>
+            .testimonial-slider {
+                overflow: hidden;
+                height: 100px; /* Adjust height as needed */
+                position: relative;
+            }
+        
+            .testimonial-slide {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                animation: slideUp 100s linear infinite;
+            }
+        
+            .testimonial-slide blockquote {
+                font-style: italic;
+                color: #555;
+                margin: 0;
+                padding: 10px 0;
+                text-align: center;
+            }
+        
+            @keyframes slideUp {
+                0% {
+                    transform: translateY(0);
+                }
+                100% {
+                    transform: translateY(-2500px); /* Adjust based on the total height of the testimonials */
+                }
+            }
+        </style>
+
+        <div class="cta-container">
+            <a href="signup.html">Join Us Today</a>
         </div>
-    </section>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <p>&copy; 2025 Coach Connect. All Rights Reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>

@@ -19,66 +19,54 @@ $password = "";
 $dbname = "coachconnect";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
-
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-
-
-// Check if the bookings table exists
-$check_table = $conn->query("SHOW TABLES LIKE 'bookings'");
-if ($check_table->num_rows == 0) {
-    // Create the bookings table if it doesn't exist
-    $create_table_query = "
-        CREATE TABLE bookings (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            trainer_id INT NOT NULL,
-            user_id INT NOT NULL,
-            booking_date DATE NOT NULL,
-            session_type VARCHAR(50) NOT NULL,
-            status VARCHAR(20) DEFAULT 'pending',
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY (trainer_id) REFERENCES trainers(id),
-            FOREIGN KEY (user_id) REFERENCES users(id)
-        )
-    ";
-    if (!$conn->query($create_table_query)) {
-        die("Error creating bookings table: " . $conn->error);
-    }
-}
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['book_trainer'])) {
-    $trainer_id = intval($_POST['trainer_id']); // Trainer ID from the form
-    $user_id = $_SESSION['user_id']; // Logged-in user's ID
-    $booking_date = $_POST['booking_date']; // Booking date from the form
-    $session_type = $_POST['session_type']; // Session type from the form
-    $status = 'pending'; // Default status
+    // Retrieve form data
+    $trainer_id = intval($_POST['trainer_id'] ?? null);
+    $user_id = $_SESSION['user_id'] ?? null;
+    $client_name = $_POST['client_name'] ?? null;
+    $client_email = $_POST['client_email'] ?? null;
+    $client_phone = $_POST['client_phone'] ?? null;
+    $booking_date = $_POST['booking_date'] ?? null;
+    $preferred_time = $_POST['preferred_time'] ?? null;
+    $session_type = $_POST['session_type'] ?? null;
+    $status = 'pending';
 
     // Validate input
-    if (empty($trainer_id) || empty($user_id) || empty($booking_date) || empty($session_type)) {
+    if (!isset($trainer_id, $user_id, $client_name, $client_email, $client_phone, $booking_date, $preferred_time, $session_type) ||
+        empty($trainer_id) || empty($user_id) || empty($client_name) || empty($client_email) || empty($client_phone) || empty($booking_date) || empty($preferred_time) || empty($session_type)) {
+        error_log("Missing Fields: trainer_id=$trainer_id, client_name=$client_name, client_email=$client_email, client_phone=$client_phone, booking_date=$booking_date, preferred_time=$preferred_time, session_type=$session_type, user_id=$user_id");
         die("Error: All fields are required.");
     }
 
-    // Debugging: Check the values being inserted
-    echo "Trainer ID: $trainer_id<br>";
-    echo "User ID: $user_id<br>";
-    echo "Booking Date: $booking_date<br>";
-    echo "Session Type: $session_type<br>";
-    echo "Status: $status<br>";
+    // Debugging: Log the values being inserted
+    error_log("Trainer ID: $trainer_id");
+    error_log("User ID: $user_id");
+    error_log("Client Name: $client_name");
+    error_log("Client Email: $client_email");
+    error_log("Client Phone: $client_phone");
+    error_log("Booking Date: $booking_date");
+    error_log("Preferred Time: $preferred_time");
+    error_log("Session Type: $session_type");
+    error_log("Status: $status");
 
     // Insert booking into the database
-    $insert_booking_query = $conn->prepare("INSERT INTO bookings (trainer_id, user_id, booking_date, session_type, status) VALUES (?, ?, ?, ?, ?)");
-    $insert_booking_query->bind_param("iisss", $trainer_id, $user_id, $booking_date, $session_type, $status);
+    $insert_booking_query = $conn->prepare("INSERT INTO client_bookings (trainer_id, user_id, client_name, client_email, client_phone, booking_date, preferred_time, session_type, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $insert_booking_query->bind_param("iisssssss", $trainer_id, $user_id, $client_name, $client_email, $client_phone, $booking_date, $preferred_time, $session_type, $status);
 
     if ($insert_booking_query->execute()) {
         echo "Booking successfully added!";
         header("Location: clientdb.php"); // Redirect to the client dashboard
         exit();
     } else {
-        die("Error inserting booking: " . $conn->error);
+        error_log("Error inserting booking: " . $conn->error);
+        die("Error: Could not process your booking. Please try again.");
     }
 }
+
 // ✅ Insert Trainers Only If They Don't Exist
 $check_trainers = $conn->query("SELECT COUNT(*) AS count FROM trainers");
 $row = $check_trainers->fetch_assoc();
@@ -94,27 +82,7 @@ if ($row['count'] == 0) { // If no trainers exist, insert them
         ['Olivia Brown', 'Yoga Instructor', '+91 98765 43217', 'olivia.brown@coachconnect.com', 'sports'],
         ['Emma White', 'Pilates Coach', '+91 98765 43218', 'emma.white.pilates@coachconnect.com', 'sports'],
         ['David Carter', 'Golf Coach', '+91 98765 43219', 'david.carter.golf@coachconnect.com', 'sports'],
-        ['Daniel Wilson', 'Martial Arts Trainer', '+91 98765 43220', 'daniel.wilson@coachconnect.com', 'sports'],
-        ['Emily Davis', 'Piano Instructor', '+91 98765 43211', 'emily.davis@example.com', 'music'],
-        ['James Wilson', 'Guitar Coach', '+91 98765 43212', 'james.wilson@example.com', 'music'],
-        ['Olivia Roberts', 'Violin Instructor', '+91 98765 43213', 'olivia.roberts@example.com', 'music'],
-        ['Daniel Smith', 'Drums Teacher', '+91 98765 43214', 'daniel.smith@example.com', 'music'],
-        ['Ava Johnson', 'Vocal Coach', '+91 98765 43215', 'ava.johnson@example.com', 'music'],
-        ['Chris Adams', 'Saxophone Instructor', '+91 98765 43216', 'chris.adams@example.com', 'music'],
-        ['Sophia Martinez', 'Flute Trainer', '+91 98765 43217', 'sophia.martinez@example.com', 'music'],
-        ['Ethan Brooks', 'Music Theory Tutor', '+91 98765 43218', 'ethan.brooks@example.com', 'music'],
-        ['Liam Carter', 'Bass Guitar Trainer', '+91 98765 43219', 'liam.carter@example.com', 'music'],
-        ['Isabella Reed', 'Choir Conductor', '+91 98765 43220', 'isabella.reed@example.com', 'music'],
-        ['Dr. Lisa Carter', 'Advanced Mathematics', '+91 98765 43210', 'lisacarter@coaching.com', 'education'],
-        ['Mark Reynolds', 'English Grammar', '+91 87654 32109', 'markreynolds@coaching.com', 'education'],
-        ['Dr. Emily Foster', 'Science Educator', '+91 76543 21098', 'emilyfoster@coaching.com', 'education'],
-        ['Thomas Greene', 'Test Prep (SAT, GRE, GMAT)', '+91 65432 10987', 'thomasgreene@coaching.com', 'education'],
-        ['Priya Sharma', 'Coding (Python, Web Development, Data Science)', '+91 54321 09876', 'priyasharma@coaching.com', 'education'],
-        ['John Matthews', 'Business (Accounting, Finance, Entrepreneurship)', '+91 54321 09876', 'johnmatthew@coaching.com', 'education'],
-        ['Sophia Bennett', 'History and Political Science', '+91 43210 98765', 'sophiabennett@coaching.com', 'education'],
-        ['Antonio Delgado', 'Language (Spanish & French)', '+91 32109 87654', 'antoniodelgado@coaching.com', 'education'],
-        ['Rachel Anderson', 'Public Speaking', '+91 21098 76543', 'rachelanderson@coaching.com', 'education'],
-        ['Michael Thompson', 'Special Education', '+91 09876 54321', 'michaelthompson@coaching.com', 'education']
+        ['Daniel Wilson', 'Martial Arts Trainer', '+91 98765 43220', 'daniel.wilson@coachconnect.com', 'sports']
     ];
 
     $stmt = $conn->prepare("INSERT INTO trainers (name, expertise, phone, email, category) VALUES (?, ?, ?, ?, ?)");
@@ -136,26 +104,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signup'])) {
     $phone = trim($_POST['phone']);
 
     if ($role === 'new_coach') {
-        $expertise = trim($_POST['expertise']);
-        $qualifications = trim($_POST['qualifications']);
+        $expertise = isset($_POST['expertise']) ? implode(', ', $_POST['expertise']) : null;
 
-        // Validate required fields
-        if (empty($name) || empty($email) || empty($phone) || empty($expertise) || empty($qualifications)) {
+        if (empty($name) || empty($email) || empty($phone) || empty($expertise)) {
             die("Error: All fields are required for new coach registration.");
         }
 
-        // Insert into pending_coaches table
-        $stmt = $conn->prepare("INSERT INTO pending_coaches (name, email, phone, expertise, qualifications) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssss", $name, $email, $phone, $expertise, $qualifications);
+        $stmt = $conn->prepare("INSERT INTO pending_coaches (name, email, phone, expertise) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("ssss", $name, $email, $phone, $expertise);
 
         if ($stmt->execute()) {
             echo "Your application has been submitted for review.";
+            header("Location: ../html/thank_you.html");
+            exit();
         } else {
             die("Error: " . $stmt->error);
         }
     } else {
-        // Handle client registration
-        $stmt = $conn->prepare("INSERT INTO users (name, email, password, role, phone) VALUES (?, ?, ?, ?, ?)");
+        $query = "INSERT INTO users (name, email, password, role, phone) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($query);
         $stmt->bind_param("sssss", $name, $email, $password, $role, $phone);
 
         if ($stmt->execute()) {
@@ -173,7 +140,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     $password = $_POST['password'];
     $role = trim($_POST['role']);
 
-    // Fetch the hashed password and role from the database
     $stmt = $conn->prepare("SELECT user_id, password, role FROM users WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
@@ -184,7 +150,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         $stmt->fetch();
 
         if ($role === 'coach') {
-            // Restrict login for new coaches
             $check_pending = $conn->prepare("SELECT COUNT(*) FROM pending_coaches WHERE email = ? AND status = 'pending'");
             $check_pending->bind_param("s", $email);
             $check_pending->execute();
@@ -197,15 +162,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         }
 
         if (password_verify($password, $hashed_password)) {
-            // Set session variables for the logged-in user
             $_SESSION['loggedin'] = true;
             $_SESSION['email'] = $email;
             $_SESSION['role'] = $db_role;
             $_SESSION['user_id'] = $user_id;
 
-            // Redirect based on the user's role
             if ($db_role === 'coach') {
-                header("Location: ../html/trainersdash.html");
+                header("Location: ../php/trainersdash.php");
             } elseif ($db_role === 'client') {
                 header("Location: ../php/clientdb.php");
             } else {

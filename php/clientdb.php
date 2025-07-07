@@ -31,14 +31,14 @@ $name = $user['name'] ?? 'Unknown';
 $email = $user['email'] ?? 'Unknown';
 
 // Profile image path
-$profileImage = "../uploads/" . $name . ".jpg";
+$profileImage = "../users/" . $userId . ".jpg"; // Use user ID for the image file
 if (!file_exists($profileImage)) {
     $profileImage = "../Profileimg/default.jpg"; // fallback image
 }
 
 // Fetch booked sessions from client_bookings table for the logged-in user
 $bookings_query = $conn->prepare("
-    SELECT trainers.name AS trainer_name, client_bookings.booking_date, client_bookings.session_type, client_bookings.status 
+    SELECT trainers.name AS trainer_name, client_bookings.booking_date, client_bookings.preferred_time, client_bookings.end_time, client_bookings.session_type, client_bookings.status 
     FROM client_bookings 
     JOIN trainers ON client_bookings.trainer_id = trainers.trainer_id 
     WHERE client_bookings.user_id = ?
@@ -47,7 +47,6 @@ if (!$bookings_query) {
     die("Error preparing bookings query: " . $conn->error);
 }
 
-// Debugging: Check the user_id being passed
 $user_id = $_SESSION['user_id']; // Ensure this is set correctly
 
 $bookings_query->bind_param("i", $user_id); // Ensure the correct user_id is passed
@@ -122,7 +121,7 @@ if (!$bookings_result) {
         <div class="container">
             <div class="logo">
                 <a href="../php/home_loggedin.php">
-                    <img src="../img/logo.png.webp" alt="Coach Connect Logo">
+                    <img src="../img/logo.png" alt="Coach Connect Logo">
                 </a>
             </div>
             <nav>
@@ -161,6 +160,8 @@ if (!$bookings_result) {
                     <tr>
                         <th>Trainer Name</th>
                         <th>Date</th>
+                        <th>Time In</th>
+                        <th>Time Out</th>
                         <th>Session Type</th>
                         <th>Status</th>
                     </tr>
@@ -168,16 +169,28 @@ if (!$bookings_result) {
                 <tbody id="bookingsTable">
                     <?php if ($bookings_result->num_rows === 0): ?>
                         <tr>
-                            <td colspan="4">No bookings found.</td>
+                            <td colspan="6">No bookings found.</td>
                         </tr>
                     <?php else: ?>
                         <?php while ($row = $bookings_result->fetch_assoc()): ?>
                             <tr>
                                 <td><?php echo htmlspecialchars($row['trainer_name']); ?></td>
                                 <td><?php echo htmlspecialchars($row['booking_date']); ?></td>
+                                <td>
+                                    <?php echo $row['preferred_time'] !== null ? htmlspecialchars($row['preferred_time']) : '<span style="color:#888;">N/A</span>'; ?>
+                                </td>
+                                <td>
+                                    <?php echo $row['end_time'] !== null ? htmlspecialchars($row['end_time']) : '<span style="color:#888;">N/A</span>'; ?>
+                                </td>
                                 <td><?php echo htmlspecialchars($row['session_type']); ?></td>
                                 <td class="payment-status <?php echo $row['status'] === 'paid' ? 'paid' : 'unpaid'; ?>">
-                                    <?php echo ucfirst($row['status']); ?>
+                                    <?php
+                                        if ($row['status'] === 'paid') {
+                                            echo '<span style="color:green;">Success</span>';
+                                        } else {
+                                            echo '<span style="color:red;">Pending</span>';
+                                        }
+                                    ?>
                                 </td>
                             </tr>
                         <?php endwhile; ?>
@@ -204,6 +217,7 @@ if (!$bookings_result) {
 
         const formData = new FormData();
         formData.append("profilePic", file);
+        formData.append("userId", <?php echo json_encode($userId); ?>); // Pass user ID to the server
 
         fetch("uploadprofile.php", {
             method: "POST",
@@ -218,7 +232,11 @@ if (!$bookings_result) {
     function deleteProfilePicture() {
         if (confirm("Are you sure you want to delete your profile picture?")) {
             fetch("deleteprofile.php", {
-                method: "POST"
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ userId: <?php echo json_encode($userId); ?> }) // Pass user ID to the server
             }).then(response => response.text())
               .then(data => {
                   alert(data);
